@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="eduhome" id="Project-d89" database="MySql" >
+	<schema name="eduhome" >
+		<table name="course_categories" prior="categories" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_course_categories" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_course_categories_courses" to_schema="eduhome" to_table="courses" >
+				<fk_column name="id" pk="category_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="courses" prior="tbl" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="category_id" type="INT" jt="4" />
+			<index name="pk_courses" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_courses_category_id" unique="UNIQUE_KEY" >
+				<column name="category_id" />
+			</index>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-149a" show_column_type="y" show_relation="columns" >
+		<entity schema="eduhome" name="course_categories" color="C1D8EE" x="48" y="64" />
+		<entity schema="eduhome" name="courses" color="C1D8EE" x="320" y="48" />
+	</layout>
+</project>

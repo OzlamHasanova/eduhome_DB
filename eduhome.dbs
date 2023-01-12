@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="eduhome" id="Project-d89" database="MySql" >
+	<schema name="eduhome" >
+		<table name="assesments" prior="asse4sments" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="assesments" type="INT" jt="4" />
+			<index name="pk_assesments" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_assesments_course_categories" to_schema="eduhome" to_table="course" >
+				<fk_column name="id" pk="assesment_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="blog" prior="tbl" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
+			<column name="writer" type="VARCHAR" length="80" jt="12" />
+			<column name="time" type="DATETIME" jt="93" />
+			<column name="descripton" type="VARCHAR" length="250" jt="12" />
+			<column name="comments" type="INT" length="100" jt="4" />
+			<column name="image" type="VARCHAR" length="20" jt="12" mandatory="y" />
+			<index name="pk_blog" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_blog_comments" unique="UNIQUE_KEY" >
+				<column name="comments" />
+			</index>
+			<fk name="fk_blog_tags_and_blog" to_schema="eduhome" to_table="tags_and_blog" >
+				<fk_column name="id" pk="blog_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="categories" prior="courses" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="category" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_courses" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_categories_course" to_schema="eduhome" to_table="course" >
+				<fk_column name="id" pk="category_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="comment" prior="comments_" >
+			<column name="id" type="INT" jt="4" />
+			<column name="comment" type="TEXT" length="500" jt="-1" />
+		</table>
+		<table name="comments" prior="comment" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="comment" type="TEXT" length="500" jt="-1" />
+			<index name="pk_comments" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_comments_blog" to_schema="eduhome" to_table="blog" >
+				<fk_column name="id" pk="comments" />
+			</fk>
+		</table>
+		<table name="contact" prior="tbl" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="mail" type="VARCHAR" length="150" jt="12" />
+			<column name="phone" type="INT" jt="4" />
+			<column name="skype" type="VARCHAR" length="50" jt="12" />
+			<column name="social_media" type="VARCHAR" length="50" jt="12" />
+			<index name="pk_contact" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_contact_teachers" to_schema="eduhome" to_table="teachers" >
+				<fk_column name="id" pk="contact_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="course" prior="course_categories" >
+			<column name="id" prior="start" type="INT" jt="4" mandatory="y" />
+			<column name="start" type="DATETIME" jt="93" />
+			<column name="duration" prior="durati" type="TIME" jt="92" />
+			<column name="class_duration" type="TIME" jt="92" />
+			<column name="students_count" type="INT" jt="4" />
+			<column name="fee" type="INT" jt="4" />
+			<column name="description" type="VARCHAR" length="250" jt="12" />
+			<column name="skill_id" type="INT" jt="4" />
+			<column name="language_id" type="VARCHAR" length="200" jt="12" />
+			<column name="assesment_id" type="VARCHAR" length="100" jt="12" />
+			<column name="category_id" type="INT" length="100" jt="4" mandatory="y" />
+			<column name="image" type="VARCHAR" length="20" jt="12" />
+			<index name="pk_course_categories" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_course_categories_skill_id" unique="UNIQUE_KEY" >
+				<column name="skill_id" />
+			</index>
+			<index name="unq_course_categories_language_id" unique="UNIQUE_KEY" >
+				<column name="language_id" />
+			</index>
+			<index name="unq_course_categories_assesment_id" unique="UNIQUE_KEY" >
+				<column name="assesment_id" />
+			</index>
+			<index name="unq_course_category_id" unique="UNIQUE_KEY" >
+				<column name="category_id" />
+			</index>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="events" prior="event" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="event_name" type="VARCHAR" length="100" jt="12" />
+			<column name="event_date" type="DATE" jt="91" />
+			<column name="time" type="TIME" jt="92" />
+			<column name="venue_id" type="INT" jt="4" />
+			<column name="description" type="VARCHAR" length="250" jt="12" />
+			<column name="speakers_id" type="INT" jt="4" />
+			<column name="image" type="VARCHAR" length="20" jt="12" mandatory="y" />
+			<index name="pk_event" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_event_venue_id" unique="UNIQUE_KEY" >
+				<column name="venue_id" />
+			</index>
+			<index name="unq_event_speakers_id" unique="UNIQUE_KEY" >
+				<column name="speakers_id" />
+			</index>
+			<fk name="fk_events_speakers_and_events" to_schema="eduhome" to_table="speakers_and_events" >
+				<fk_column name="id" pk="events_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="language" prior="tbl" >
+			<column name="id" type="INT" length="200" jt="4" />
+			<column name="language" type="VARCHAR" length="100" jt="12" />
+			<fk name="fk_language_course_categories" to_schema="eduhome" to_table="course" >
+				<fk_column name="id" pk="language_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="skill" prior="tbl" >
+			<column name="id" type="INT" jt="4" />
+			<column name="skill" type="VARCHAR" length="250" jt="12" />
+			<index name="unq_skill_id" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_skill_course_categories" to_schema="eduhome" to_table="course" >
+				<fk_column name="id" pk="skill_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="skills" prior="skille" >
+			<column name="id" type="INT" jt="4" />
+			<column name="skill" type="VARCHAR" length="150" jt="12" />
+			<fk name="fk_skills_skills_and_teachers" to_schema="eduhome" to_table="skills_and_teachers" >
+				<fk_column name="id" pk="skill_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="skills_and_teachers" prior="tbl" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="skill_id" type="INT" length="150" jt="4" mandatory="y" />
+			<column name="teacher_id" type="INT" jt="4" mandatory="y" />
+			<column name="skill_level" type="VARCHAR" length="7" jt="12" mandatory="y" />
+			<index name="pk_skills_and_teachers" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_skills_and_teachers_skill_id" unique="UNIQUE_KEY" >
+				<column name="skill_id" />
+			</index>
+			<index name="unq_skills_and_teachers_teacher_id" unique="UNIQUE_KEY" >
+				<column name="teacher_id" />
+			</index>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="spe" prior="tbl" />
+		<table name="speaker" prior="tbl" />
+		<table name="speakers" prior="tbl" >
+			<column name="id" type="INT" jt="4" />
+			<column name="fullname" type="VARCHAR" length="100" jt="12" />
+			<column name="image" type="VARCHAR" length="20" jt="12" />
+			<fk name="fk_speakers_speakers_and_events" to_schema="eduhome" to_table="speakers_and_events" >
+				<fk_column name="id" pk="speakers_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="speakers_and_events" prior="speakers_and_" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="speakers_id" type="INT" jt="4" mandatory="y" />
+			<column name="events_id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_speakers_and_events" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_speakers_and_events_events_id" unique="UNIQUE_KEY" >
+				<column name="events_id" />
+			</index>
+			<index name="unq_speakers_and_events_speakers_id" unique="UNIQUE_KEY" >
+				<column name="speakers_id" />
+			</index>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="tags" prior="tbl_0" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="name" type="VARCHAR" length="50" jt="12" />
+			<index name="pk_tags" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_tags_tags_and_blog" to_schema="eduhome" to_table="tags_and_blog" >
+				<fk_column name="id" pk="tags_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="tags_and_blog" prior="tags_and_" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="tags_id" type="INT" jt="4" />
+			<column name="blog_id" type="INT" jt="4" />
+			<index name="pk_tags_and_blog" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_tags_and_blog_tags_id" unique="UNIQUE_KEY" >
+				<column name="tags_id" />
+			</index>
+			<index name="unq_tags_and_blog_blog_id" unique="UNIQUE_KEY" >
+				<column name="blog_id" />
+			</index>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="tbl" />
+		<table name="te" prior="tbl" />
+		<table name="teachers" prior="tea" >
+			<column name="id" type="INT" jt="4" />
+			<column name="fullname" type="VARCHAR" length="100" jt="12" />
+			<column name="academic_level" type="VARCHAR" length="100" jt="12" />
+			<column name="about" type="VARCHAR" length="250" jt="12" />
+			<column name="degree" type="VARCHAR" length="100" jt="12" />
+			<column name="experience" type="VARCHAR" length="100" jt="12" />
+			<column name="hobbies" prior="h" type="VARCHAR" length="100" jt="12" />
+			<column name="faculty" type="VARCHAR" length="80" jt="12" />
+			<column name="contact_id" type="INT" jt="4" />
+			<column name="skills_id" type="INT" length="250" jt="4" />
+			<column name="image" type="VARCHAR" length="20" jt="12" />
+			<index name="unq_teachers_skills_id" unique="UNIQUE_KEY" >
+				<column name="skills_id" />
+			</index>
+			<index name="unq_teachers_contact_id" unique="UNIQUE_KEY" >
+				<column name="contact_id" />
+			</index>
+			<fk name="fk_teachers_skills_and_teachers" to_schema="eduhome" to_table="skills_and_teachers" >
+				<fk_column name="id" pk="teacher_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="ven" prior="tbl" />
+		<table name="venues" prior="venue" >
+			<column name="id" type="INT" jt="4" />
+			<column name="location" type="VARCHAR" length="100" jt="12" />
+			<fk name="fk_venues_event" to_schema="eduhome" to_table="events" >
+				<fk_column name="id" pk="venue_id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+	</schema>
+	<connector name="MyDb" database="MySql" host="localhost" port="3306" user="root" useSystemProxy="false" />
+	<layout name="Default Layout" id="Layout-149a" joined_routing="y" show_column_type="y" show_relation="columns" >
+		<comment><![CDATA[eduhome]]></comment>
+		<entity schema="eduhome" name="assesments" color="C1D8EE" x="768" y="288" />
+		<entity schema="eduhome" name="blog" color="4D8080" x="1552" y="192" />
+		<entity schema="eduhome" name="categories" color="C1D8EE" x="48" y="192" />
+		<entity schema="eduhome" name="comments" color="4D8080" x="1856" y="320" />
+		<entity schema="eduhome" name="contact" color="C1D8EE" x="2064" y="928" />
+		<entity schema="eduhome" name="course" color="C1D8EE" x="352" y="48" />
+		<entity schema="eduhome" name="events" color="800000" x="384" y="784" />
+		<entity schema="eduhome" name="language" color="C1D8EE" x="768" y="208" />
+		<entity schema="eduhome" name="skill" color="C1D8EE" x="768" y="64" />
+		<entity schema="eduhome" name="skills" color="C1D8EE" x="2288" y="1424" />
+		<entity schema="eduhome" name="skills_and_teachers" color="C1D8EE" x="2144" y="1232" />
+		<entity schema="eduhome" name="speakers" color="800000" x="1056" y="848" />
+		<entity schema="eduhome" name="speakers_and_events" color="800000" x="752" y="800" />
+		<entity schema="eduhome" name="tags" color="669999" x="1040" y="384" />
+		<entity schema="eduhome" name="tags_and_blog" color="336666" x="1296" y="256" />
+		<entity schema="eduhome" name="teachers" color="C1D8EE" x="2416" y="912" />
+		<entity schema="eduhome" name="venues" color="800000" x="64" y="816" />
+	</layout>
+</project>
